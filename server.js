@@ -5,19 +5,19 @@
 var express = require('express');
 var app = express();
 var multer = require('multer');
-
+var upload = multer(/*{dest: __dirname + '/uploads/'}*/);
 app.use(express.static('public'));
 
 
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 
 
 
-app.post("/", function (request, response) {
-  response.sendStatus(200);
+app.post("/size", upload.single('file'),function (req, res) {
+  res.json({size: req.file.size});
 });
 
 
